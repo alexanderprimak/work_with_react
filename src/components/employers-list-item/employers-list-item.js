@@ -1,20 +1,23 @@
-import { useState } from 'react';
 import './employers-list-item.css';
 
-export const EmployersListItem = ({ name, salary, increase }) => {
-	const [increaseState, increaseSet] = useState(increase);
-
-	const handlerCookie = () => {
-		increaseState ? increaseSet(false) : increaseSet(true);
-	};
+export function EmployersListItem({
+	name,
+	salary,
+	onDelete,
+	increase,
+	rise,
+	onHandlerRise,
+	onHandlerIncrease,
+}) {
+	const classNames = `list-group-item d-flex justify-content-between ${
+		increase ? 'increase' : ''
+	} ${rise ? 'like' : ''}`;
 
 	return (
-		<li
-			className={`list-group-item d-flex justify-content-between ${
-				increaseState ? 'increase' : ''
-			}`}
-		>
-			<span className='list-group-item-label'>{name}</span>
+		<li className={classNames}>
+			<span onClick={onHandlerRise} className='list-group-item-label'>
+				{name}
+			</span>
 			<input
 				type='text'
 				className='list-group-item-input'
@@ -22,14 +25,14 @@ export const EmployersListItem = ({ name, salary, increase }) => {
 			/>
 			<div className='d-flex justify-content-center align-items-center'>
 				<button type='button' className='btn-cookie btn-sm '>
-					<i onClick={handlerCookie} className='fas fa-cookie'></i>
+					<i onClick={onHandlerIncrease} className='fas fa-cookie'></i>
 				</button>
 
-				<button type='button' className='btn-trash btn-sm '>
+				<button onClick={onDelete} type='button' className='btn-trash btn-sm '>
 					<i className='fas fa-trash'></i>
 				</button>
 				<i className='fas fa-star'></i>
 			</div>
 		</li>
 	);
-};
+}
