@@ -15,6 +15,17 @@ export class EmployersAddForm extends Component {
 			[e.target.name]: e.target.value,
 		});
 	};
+	onSubmit = e => {
+		e.preventDefault();
+		const { name, salary } = this.state;
+		if (name !== null && name !== '' && salary !== null && salary !== '') {
+			this.props.createItem(name, salary);
+			this.setState({
+				name: '',
+				salary: '',
+			});
+		}
+	};
 
 	render() {
 		const { name, salary } = this.state;
@@ -39,7 +50,11 @@ export class EmployersAddForm extends Component {
 						onChange={this.onValueChange}
 					/>
 
-					<button type='submit' className='btn btn-outline-light'>
+					<button
+						onClick={this.onSubmit}
+						type='submit'
+						className='btn btn-outline-light'
+					>
 						Добавить
 					</button>
 				</form>
